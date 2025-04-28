@@ -6,7 +6,7 @@ const {
   updateBuilding, 
   deleteBuilding 
 } = require('../controllers/buildingController');
-const { protect, authorize } = require('../middleware/auth');
+const { protect, adminOnly } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -17,12 +17,12 @@ router.get('/', getAllBuildings);
 router.get('/:id', getBuilding);
 
 // 添加建筑物 - 仅管理员可操作
-router.post('/', protect, authorize('admin'), createBuilding);
+router.post('/', protect, adminOnly, createBuilding);
 
 // 更新建筑物 - 仅管理员可操作
-router.put('/:id', protect, authorize('admin'), updateBuilding);
+router.put('/:id', protect, adminOnly, updateBuilding);
 
 // 删除建筑物 - 仅管理员可操作
-router.delete('/:id', protect, authorize('admin'), deleteBuilding);
+router.delete('/:id', protect, adminOnly, deleteBuilding);
 
 module.exports = router; 
